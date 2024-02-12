@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML, CSS Javascript Clock (Monday 8 November 2021) </title>
+    <style>
+        #clock {
+            width: 400px;
+            height: 400px;
+            background: url(clock-without-hands.png);
+            background-size: 100% 100%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .clock-hands img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -100%);
+            transform-origin: bottom;
+        }
+
+        .minute-hand {
+            height: 135px;
+            width: 15px;
+        }
+
+        .second-hand {
+            height: 165px;
+            transition-duration: 1s;
+            transition-timing-function: linear;
+        }
+        .clock-hands:after {
+            content: " ";
+            position: absolute;
+            width: 20px;
+            background-color: red;
+            height: 20px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock">
+        <div class="clock-hands">
+            <img class="hour-hand" src="minute-hand.png" alt="">
+            <img class="minute-hand" src="hour-hand.png" alt="">
+            <img class="second-hand" src="second-hand.png" alt="">
+        </div>
+    </div>
+
+    <script>
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+
+        function theTime() {
+            const date = new Date();
+            let second = date.getSeconds();
+            let minute = date.getMinutes();
+            let hour = date.getHours();
+            hour = hour > 12 ? hour - 12 : hour;
+
+            
+            if(second === 0) {
+                secondHand.style.transition = 'none';
+                const id = setTimeout(function(){
+                    secondHand.style.transition = '1s linear';
+                },100);
+                
+            }
+
+            secondHand.style.transform = 'translate(-50%,-100%) rotate(' + second * 6 + 'deg)'
+
+            minuteHand.style.transform = 'translate(-50%,-100%) rotate(' + (((minute * 60) + second) * 0.1) + 'deg)'
+
+            hourHand.style.transform = 'translate(-50%,-100%) rotate(' + (((hour * 3600) + (minute * 60)) * 0.008333333333333333) + 'deg)'
+
+        }
+        theTime();
+        setInterval(theTime, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall clock using HTML, CSS and Javascript ( Monday 8 November 2021 ) </title>
+    <style>
+        body {
+            background-color: #F8D3AB;
+        }
+        #clock {
+            border: 25px solid #DBA163;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            position: relative;
+        }
+
+        .line-12 span {
+            position: absolute;
+            width: 2px;
+            height: 280px;
+            background-color: #DBA163;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        .line-12 span:nth-child(2) {
+            transform: translate(-50%, -50%) rotate(30deg)
+        }
+
+        .line-12 span:nth-child(3) {
+            transform: translate(-50%, -50%) rotate(60deg)
+        }
+
+        .line-12 span:nth-child(4) {
+            transform: translate(-50%, -50%) rotate(90deg)
+        }
+
+        .line-12 span:nth-child(5) {
+            transform: translate(-50%, -50%) rotate(120deg)
+        }
+
+        .line-12 span:nth-child(6) {
+            transform: translate(-50%, -50%) rotate(150deg)
+        }
+
+        .clock-hands {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background-color: #DBA163;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+        }
+
+        .hour-hand,
+        .minute-hand,
+        .second-hand {
+            height: 58px;
+            width: 3px;
+            background-color: #fff;
+            background-color: #f7d4b0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-100%);
+            transform-origin: bottom ;
+            border-radius: 30px;
+            
+        }
+
+        .minute-hand {
+            width: 2px;
+            height: 75px;
+        }
+        .second-hand {
+            width: 1px;
+            height: 95px;
+        }
+
+        #clock:after {
+            width: 12px;
+            height: 12px;
+            background-color: #F8D3AB;
+            border-radius: 50%;
+            content: " ";
+            display: block;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="clock">
+        <div class="line-12">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="clock-hands">
+            <span class="hour-hand"></span>
+            <span class="minute-hand"></span>
+            <span class="second-hand"></span>
+        </div>
+    </div>
+
+
+    <script>
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+
+        function theTime() {
+            const date = new Date();
+            let second = date.getSeconds();
+            let minute = date.getMinutes();
+            let hour = date.getHours();
+            console.log(hour);
+            hour = hour > 12 ? hour - 12 : hour;
+
+
+            secondHand.style.transform = 'translate(-50%,-100%) rotate(' + second * 6 + 'deg)'
+
+            minuteHand.style.transform = 'translate(-50%,-100%) rotate(' + (((minute * 60) + second) * 0.1) + 'deg)'
+
+            hourHand.style.transform = 'translate(-50%,-100%) rotate(' + (((hour * 3600) + (minute * 60)) * 0.008333333333333333) + 'deg)'
+
+
+
+        }
+        setInterval(theTime, 1000);
+
+    </script>
+</body>
+
+</html>
