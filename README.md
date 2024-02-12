@@ -1,7 +1,6 @@
 # Vanilla JS Wall clock projects
 
 This repository contains various vanilla JavaScript wall clock projects.
-Each project is designed to showcase different tab implementations.
 Feel free to explore the source code of each project.
 
 ## Live links of the projects:
